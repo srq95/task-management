@@ -1,0 +1,177 @@
+.header {
+  width: 100%;
+  position: relative;
+  background: #fff;
+  border-radius: var(--button-radius);
+  padding: 15px 20px;
+}
+
+.rightMenu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+}
+
+.rightMenu > li {
+  cursor: pointer;
+  position: relative;
+}
+
+.rightMenu > li > .roundButton,
+.rightMenu > li > img {
+  width: 35px;
+  height: 35px;
+}
+
+.rightMenu > li > .roundButton {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2px;
+  transition: all 0.3s;
+}
+
+.rightMenu > li:hover > .roundButton {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.rightMenu > li > img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.dropMenu {
+  position: absolute;
+  background: #fff;
+  font-size: 12px;
+  padding: 15px;
+  border-radius: var(--button-radius);
+  right: -5px;
+  bottom: -15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.075);
+  width: 100%;
+  min-width: 300px;
+  transform: translate(0%, 100%);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.rightMenu > li:hover > .dropMenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropMenu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 24px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 10px solid var(--primary);
+  transform: translate(50%, -100%);
+}
+
+.dropMenu > h3 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.userDetailArea {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+  padding: 0 0 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.userImage > img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+.userDetail > h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px;
+}
+
+.userDetail > p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  opacity: 0.75;
+}
+
+.userDetail > p:not(:last-child) {
+  margin: 0 0 3px;
+}
+
+.logoutArea > a {
+  background: var(--primary);
+  padding: 10px 20px;
+  display: block;
+  text-align: center;
+  color: #fff;
+  border-radius: var(--button-radius);
+  text-decoration: none;
+}
+
+.tabsArea {
+  margin: 15px 0 0;
+}
+
+.tabsArea > .dropDownTabs,
+.tabsArea > .dropDownTabs > li > button {
+  border: 0;
+}
+
+.tabsArea > .dropDownTabs {
+  border: 1px solid #ddd;
+  border-radius: var(--button-radius);
+  padding: 4px;
+  background: #f1f5f9;
+}
+
+.tabsArea > .dropDownTabs > li {
+  width: 50%;
+}
+
+.tabsArea > .dropDownTabs > li > button {
+  width: 100%;
+  color: #000;
+  padding: 7px 15px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.tabsArea > .dropDownTabs > li > button[aria-selected="true"] {
+  background: var(--primary);
+  border-radius: calc(var(--button-radius) - 2px);
+  color: #fff;
+}
+
+.teamsUl {
+  margin: 15px 0 0;
+}
+
+.teamsUl .userDetailArea {
+  border: 1px solid #eee;
+  border-radius: var(--button-radius);
+  padding: 10px;
+}
+
+.teamsUl .userDetailArea .userImage > img {
+  width: 55px;
+  height: 55px;
+}
