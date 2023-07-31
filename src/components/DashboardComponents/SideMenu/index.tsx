@@ -2,9 +2,17 @@ import React from "react";
 import Link from "next/link";
 import style from "./SideMenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faAdd, faListCheck, faFileAlt, faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAdd,
+  faListCheck,
+  faFileAlt,
+  faFileCirclePlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 const SideMenu = () => {
+  const router = useRouter();
+
   const UserLinks: DashboardMenuType[] = [
     {
       heading: "Tasks",
@@ -13,11 +21,10 @@ const SideMenu = () => {
           text: "View Tasks",
           link: "/dashboard",
           icon: faListCheck,
-          isActive: true,
         },
         {
           text: "Add Tasks",
-          link: "/dashboard/add-task",
+          link: "/dashboard/tasks/add",
           icon: faAdd,
         },
       ],
@@ -32,7 +39,40 @@ const SideMenu = () => {
         },
         {
           text: "Add Projects",
-          link: "/dashboard/add-project",
+          link: "/dashboard/projects/add",
+          icon: faFileCirclePlus,
+        },
+      ],
+    },
+  ];
+
+  const AdminLinks: DashboardMenuType[] = [
+    {
+      heading: "Groups",
+      links: [
+        {
+          text: "View Groups",
+          link: "/dashboard/groups",
+          icon: faListCheck,
+        },
+        {
+          text: "Add Group",
+          link: "/dashboard/groups/add",
+          icon: faAdd,
+        },
+      ],
+    },
+    {
+      heading: "Users",
+      links: [
+        {
+          text: "View Users",
+          link: "/dashboard/users",
+          icon: faFileAlt,
+        },
+        {
+          text: "Add User",
+          link: "/dashboard/users/add",
           icon: faFileCirclePlus,
         },
       ],
@@ -57,7 +97,29 @@ const SideMenu = () => {
                   <li key={linkindex}>
                     <Link
                       href={linkitem.link}
-                      className={linkitem.isActive ? style.active : ""}
+                      className={
+                        router.pathname === linkitem.link ? style.active : ""
+                      }
+                    >
+                      <FontAwesomeIcon icon={linkitem.icon} />
+                      {linkitem.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </React.Fragment>
+          ))}
+          {AdminLinks.map((item, index) => (
+            <React.Fragment key={index}>
+              <h3>{item.heading}</h3>
+              <ul>
+                {item.links.map((linkitem, linkindex) => (
+                  <li key={linkindex}>
+                    <Link
+                      href={linkitem.link}
+                      className={
+                        router.pathname === linkitem.link ? style.active : ""
+                      }
                     >
                       <FontAwesomeIcon icon={linkitem.icon} />
                       {linkitem.text}

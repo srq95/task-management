@@ -11,6 +11,7 @@
   max-width: 1000px;
   background: #fff;
   border-radius: var(--container-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   margin: auto;
   overflow: hidden;
 }
@@ -39,7 +40,8 @@
   margin-bottom: 7px;
 }
 
-.leftLoginArea input, .leftLoginArea button {
+.leftLoginArea input,
+.leftLoginArea button {
   width: 100%;
   padding: 10px 15px;
   border-radius: var(--button-radius);
@@ -48,7 +50,7 @@
 
 .leftLoginArea input {
   margin-bottom: 20px;
-  border: 1px solid hsl(0, 0%, 67%);
+  border: 1px solid #ababab;
 }
 
 .leftLoginArea input::placeholder {
@@ -67,6 +69,7 @@
   padding: calc(var(--form-padding) * 1.5);
   text-align: center;
   background: #f9f6fd;
+  border-left: 1px solid #eee;
 }
 
 .rightLoginArea > img {

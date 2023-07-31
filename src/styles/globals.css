@@ -1,5 +1,5 @@
 :root {
-  --background: #eee;
+  --background: #f1f5f9;
   --text-color: #000;
   --primary: #6a2fd5;
   --button-radius: 6px;
@@ -9,6 +9,10 @@
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar {
   background: lightgray;
 }
 
@@ -44,6 +48,96 @@ body {
 }
 
 .dashboard-rightArea {
+  --padding: 20px;
   width: calc(100% - 250px);
-  padding: 20px;
+  padding: var(--padding);
+}
+
+.white-card {
+  background: #fff;
+  padding: var(--padding);
+  margin-top: var(--padding);
+  border-radius: var(--button-radius);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+table {
+  --border-color: #e2e8f0;
+  width: 100%;
+}
+
+table thead {
+  border-bottom: 1px solid var(--border-color);
+}
+
+table thead th:not(:last-child) {
+  border-right: 1px solid var(--border-color);
+}
+
+table :is(th, td) {
+  padding: 10px 15px;
+}
+
+table th {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.card-title {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 25px;
+  padding-bottom: 5px;
+}
+
+.card-title > h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.form-box {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-box label {
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.form-box input,
+.form-box button,
+.form-box select,
+.form-box textarea {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: var(--button-radius);
+  outline: 0;
+}
+
+.form-box input,
+.form-box select,
+.form-box textarea {
+  margin-bottom: 20px;
+  border: 1px solid #ababab;
+}
+
+.form-box textarea {
+  height: 150px;
+  resize: none;
+}
+
+.form-box button {
+  width: auto;
+  display: flex;
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box button[type="submit"] {
+  margin-left: auto;
 }

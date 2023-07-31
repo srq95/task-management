@@ -1,10 +1,14 @@
+import { useContext } from "react";
 import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import style from "./DashboardHeader.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBoxesStacked, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { MainContext } from "@/context";
 
 const DashboardHeader = () => {
+  
+  const context = useContext(MainContext);
   return (
     <>
       <header className={style.header}>
@@ -128,11 +132,11 @@ const DashboardHeader = () => {
                       <img src="/assets/dashboard/users/1.jpg" alt="" />
                     </div>
                     <div className={style.userDetail}>
-                      <h4>Mathew Anderson</h4>
-                      <p>Designer</p>
+                      <h4>{context?.userData && context?.userData.name}</h4>
+                      <p>{context?.userData && context?.userData.designation}</p>
                       <p>
                         <FontAwesomeIcon icon={faEnvelope} />
-                        info@something.com
+                        {context?.userData && context?.userData.email}
                       </p>
                     </div>
                   </div>

@@ -4,6 +4,7 @@
   background: #fff;
   border-radius: var(--button-radius);
   padding: 15px 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 
 .rightMenu {
@@ -140,7 +141,7 @@
   border: 1px solid #ddd;
   border-radius: var(--button-radius);
   padding: 4px;
-  background: #f1f5f9;
+  background: var(--background);
 }
 
 .tabsArea > .dropDownTabs > li {

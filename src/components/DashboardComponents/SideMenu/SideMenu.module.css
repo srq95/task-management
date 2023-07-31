@@ -29,7 +29,7 @@
 
 .menu {
   padding: 45px 20px;
-  max-height: calc(100vh - 205px);
+  max-height: calc(100vh - 194px);
   overflow: auto;
 }
 
@@ -53,8 +53,7 @@
 .menu > ul > li > a {
   display: block;
   text-decoration: none;
-  padding: 7px 15px 7px 35px;
-  margin-left: 15px;
+  padding: 7px 15px 7px 40px;
   border-radius: var(--button-radius);
   transition: all 0.3s;
   position: relative;
@@ -68,7 +67,7 @@
 .menu > ul > li > a > svg {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 13px;
   color: var(--primary);
   transition: all 0.3s;
 }
