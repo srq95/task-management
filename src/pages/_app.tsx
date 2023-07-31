@@ -3,17 +3,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/globals.css";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import SimpleLayout from "@/layouts/SimpleLayout";
+import { MainProvider } from "@/context";
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  const dashboardPath = ["/dashboard"];
+  const dashboardPath = "/dashboard";
 
-  const isDashboardPage = dashboardPath.includes(router.pathname);
+  const isDashboardPage = router.pathname.includes(dashboardPath);
 
   const Layout = isDashboardPage ? DashboardLayout : SimpleLayout;
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <MainProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </MainProvider>
   );
 }

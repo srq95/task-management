@@ -1,7 +1,6 @@
 import DashboardHeader from "@/components/DashboardComponents/DashboardHeader";
 import SideMenu from "@/components/DashboardComponents/SideMenu";
 import { Poppins } from "next/font/google";
-import Head from "next/head";
 import React from "react";
 
 type ChildrenProps = {
@@ -17,9 +16,6 @@ const poppins = Poppins({
 const DashboardLayout: React.FC<ChildrenProps> = ({ children }) => {
   return (
     <div>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
       <main className={`dashboard-area ${poppins.className}`}>
         <SideMenu />
         <div className="dashboard-rightArea">
