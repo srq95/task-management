@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import style from "./SideMenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +9,11 @@ import {
   faFileCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import { MainContext } from "@/context";
 
 const SideMenu = () => {
   const router = useRouter();
+  const context = useContext(MainContext);
 
   const UserLinks: DashboardMenuType[] = [
     {
@@ -79,6 +81,15 @@ const SideMenu = () => {
     },
   ];
 
+  const navLinks = () => {
+    if (context && context.userData && context.userData.rights) {
+      const links =
+        context?.userData.rights === "admin" ? AdminLinks : UserLinks;
+      return links;
+    }
+    return [];
+  };
+
   return (
     <>
       <div className={style.sideMenu}>
@@ -89,27 +100,7 @@ const SideMenu = () => {
           </Link>
         </div>
         <div className={style.menu}>
-          {UserLinks.map((item, index) => (
-            <React.Fragment key={index}>
-              <h3>{item.heading}</h3>
-              <ul>
-                {item.links.map((linkitem, linkindex) => (
-                  <li key={linkindex}>
-                    <Link
-                      href={linkitem.link}
-                      className={
-                        router.pathname === linkitem.link ? style.active : ""
-                      }
-                    >
-                      <FontAwesomeIcon icon={linkitem.icon} />
-                      {linkitem.text}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </React.Fragment>
-          ))}
-          {AdminLinks.map((item, index) => (
+          {navLinks().map((item, index) => (
             <React.Fragment key={index}>
               <h3>{item.heading}</h3>
               <ul>
