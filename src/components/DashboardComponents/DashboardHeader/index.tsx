@@ -5,10 +5,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBoxesStacked, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { MainContext } from "@/context";
+import { signOut } from "firebase/auth";
+import { auth } from "@/utils/firebase";
 
 const DashboardHeader = () => {
-  
   const context = useContext(MainContext);
+
+  const submitHandler = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.log(err);
+      alert("Something Went Wrong");
+    }
+  };
   return (
     <>
       <header className={style.header}>
@@ -133,7 +145,9 @@ const DashboardHeader = () => {
                     </div>
                     <div className={style.userDetail}>
                       <h4>{context?.userData && context?.userData.name}</h4>
-                      <p>{context?.userData && context?.userData.designation}</p>
+                      <p>
+                        {context?.userData && context?.userData.designation}
+                      </p>
                       <p>
                         <FontAwesomeIcon icon={faEnvelope} />
                         {context?.userData && context?.userData.email}
@@ -142,7 +156,9 @@ const DashboardHeader = () => {
                   </div>
 
                   <div className={style.logoutArea}>
-                    <Link href="/">Sign Out</Link>
+                    <Link href="/" onClick={submitHandler}>
+                      Sign Out
+                    </Link>
                   </div>
                 </div>
               </li>
