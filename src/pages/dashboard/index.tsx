@@ -1,59 +1,26 @@
-import Head from "next/head";
-import { useContext, useEffect, useState } from "react";
-import { collection, doc, getDocs } from "firebase/firestore";
 import { MainContext } from "@/context";
-import { firestore } from "@/utils/firebase";
-
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 
 const Dashboard = () => {
-  // const [allTasks, setAllTasks] = useState<TaskDataType[]>([])
+  const router = useRouter();
+  const context = useContext(MainContext);
 
-  // const context = useContext(MainContext);
-
-  // const getProjects = async () => {
-  //   try {
-  //     if (context && context.userData && context.userData.group) {
-  //       const groupDocRef = doc(firestore, "groups", context.userData.group);
-  //       const projectDoc = doc(groupDocRef, "projects", project)
-  //       const projectData = await getDocs(projectCollection);
-
-  //       const projectNames: ProjectDataType[] = [];
-
-  //       projectData.forEach((doc) => {
-  //         projectNames.push({ name: doc.data().name, projectId: doc.id });
-  //       });
-  //       setAllTasks(projectNames);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching projects:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getProjects();
-  // }, [context?.userData?.group]);
-
-
+  useEffect(() => {
+    if (context && context.userData && context.userData.rights) {
+      context?.userData.rights !== "admin"
+        ? router.push("/dashboard/tasks")
+        : router.push("/dashboard/groups");
+    }
+  }, [context]);
 
   return (
     <>
       <Head>
         <title>Dashboard</title>
       </Head>
-      <div className="white-card p-0">
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Task</th>
-              <th>Project</th>
-              <th>Assigned At</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
+      <></>
     </>
   );
 };
