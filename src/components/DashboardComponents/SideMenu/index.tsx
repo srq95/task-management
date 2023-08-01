@@ -21,7 +21,7 @@ const SideMenu = () => {
       links: [
         {
           text: "View Tasks",
-          link: "/dashboard",
+          link: "/dashboard/tasks",
           icon: faListCheck,
         },
         {

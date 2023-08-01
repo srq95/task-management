@@ -83,6 +83,24 @@ table th {
   font-weight: 600;
 }
 
+table .btn {
+  font-size: 10px;
+  padding: 7px 10px;
+}
+
+table .btn + .btn {
+  margin-left: 5px;
+}
+
+.sno-td {
+  width: 50px;
+}
+
+.action-td {
+  white-space: nowrap;
+  width: 70px;
+}
+
 .card-title {
   border-bottom: 1px solid #ccc;
   margin-bottom: 25px;
@@ -140,4 +158,17 @@ table th {
 
 .form-box button[type="submit"] {
   margin-left: auto;
+}
+
+.p-0 .card-title {
+  padding: var(--padding);
+}
+
+.p-0 .card-title > h1 {
+  margin: 0;
+}
+
+span.badge {
+  font-size: 13px;
+  padding: 5px 10px;
 }

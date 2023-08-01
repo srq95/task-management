@@ -23,7 +23,6 @@ const MainProvider: React.FC<ChildrenProps> = ({ children }) => {
   const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
-    // Listen for changes in authentication state
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         fetchUserData(user.uid);

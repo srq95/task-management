@@ -36,7 +36,8 @@ declare global {
     name: string;
     project: string;
     details: string;
-    createdAt: string;
+    createdAt: any;
+    isCompleted: boolean;
   }
 }
 

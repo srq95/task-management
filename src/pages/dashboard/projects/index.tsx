@@ -3,6 +3,8 @@ import { collection, doc, getDocs } from "firebase/firestore";
 import { MainContext } from "@/context";
 import { firestore } from "@/utils/firebase";
 import Head from "next/head";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Projects = () => {
   const [allProjects, setAllProjects] = useState<ProjectDataType[]>([]);
@@ -39,11 +41,11 @@ const Projects = () => {
         <table>
           <thead>
             <tr>
-              <th>S.No</th>
+              <th className="sno-td">S.No</th>
               <th>Project Name</th>
               <th>Project Url</th>
               <th>Project Details</th>
-              <th>Action</th>
+              <th className="action-td">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -53,7 +55,14 @@ const Projects = () => {
                 <td>{item.name}</td>
                 <td>{item.projectUrl}</td>
                 <td>{item.details}</td>
-                <td>{item.name}</td>
+                <td className="action-td">
+                  <button className="btn btn-primary">
+                    <FontAwesomeIcon icon={faEye} />
+                  </button>
+                  <button className="btn btn-danger">
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

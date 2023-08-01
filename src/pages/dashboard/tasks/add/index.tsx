@@ -65,6 +65,7 @@ const AddTask = () => {
           name: name,
           project: project,
           details: details,
+          isCompleted: false,
           createdAt: serverTimestamp(),
         });
 

@@ -1,4 +1,6 @@
 import { firestore } from "@/utils/firebase";
+import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -48,11 +50,12 @@ const Users = () => {
         <table>
           <thead>
             <tr>
-              <th>S.No</th>
+              <th className="sno-td">S.No</th>
               <th>Username</th>
               <th>Designation</th>
               <th>Email</th>
               <th>Group</th>
+              <th className="action-td">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -63,6 +66,14 @@ const Users = () => {
                 <td>{item.designation}</td>
                 <td>{item.email}</td>
                 <td>{item.group}</td>
+                <td className="action-td">
+                  <button className="btn btn-primary">
+                    <FontAwesomeIcon icon={faEye} />
+                  </button>
+                  <button className="btn btn-danger">
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

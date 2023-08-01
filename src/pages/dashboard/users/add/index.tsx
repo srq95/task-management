@@ -68,7 +68,6 @@ const AddUser = () => {
       router.push("/dashboard/users");
     } catch (err) {
       console.error(err);
-      // alert("Something Went Wrong");
     }
   };
 
