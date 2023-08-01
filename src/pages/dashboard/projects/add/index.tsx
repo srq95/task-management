@@ -6,8 +6,11 @@ import { Col, Row } from "react-bootstrap";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { firestore } from "@/utils/firebase";
 import { MainContext } from "@/context";
+import { useRouter } from "next/router";
 
 const AddProject = () => {
+  const router = useRouter();
+
   const nameRef = useRef<HTMLInputElement>(null);
   const projectUrlRef = useRef<HTMLInputElement>(null);
   const userIdRef = useRef<HTMLInputElement>(null);
@@ -35,6 +38,8 @@ const AddProject = () => {
           password: password,
           details: details,
         });
+
+        router.push("/dashboard/projects");
       }
     } catch (error) {
       console.error("Error adding data to Projects collection:", error);

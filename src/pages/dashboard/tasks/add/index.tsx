@@ -6,8 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
 import { Col, Row } from "react-bootstrap";
 import { firestore } from "@/utils/firebase";
+import { useRouter } from "next/router";
 
 const AddTask = () => {
+  const router = useRouter();
+
   const [allProjects, setAllProjects] = useState<ProjectDataType[]>([]);
 
   const nameRef = useRef<HTMLInputElement>(null);
@@ -64,6 +67,8 @@ const AddTask = () => {
           details: details,
           createdAt: serverTimestamp(),
         });
+
+        router.push("/dashboard/tasks");
       }
     } catch (error) {
       console.error("Error adding data to Projects collection:", error);

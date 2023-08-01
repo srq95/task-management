@@ -5,8 +5,11 @@ import Head from "next/head";
 import { Col, Row } from "react-bootstrap";
 import { addDoc, collection } from "firebase/firestore";
 import { firestore } from "@/utils/firebase";
+import { useRouter } from "next/router";
 
 const AddGroup = () => {
+  const router = useRouter();
+
   const groupNameRef = useRef<HTMLInputElement>(null);
   const groupDetailRef = useRef<HTMLTextAreaElement>(null);
 
@@ -35,9 +38,9 @@ const AddGroup = () => {
         groupDetailRef.current.value = "";
       }
 
-      console.log("Group added successfully!", newDocRef.id);
+      router.push("/dashboard/groups");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Something Went Wrong");
     }
   };

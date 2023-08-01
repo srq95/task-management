@@ -45,7 +45,6 @@ const MainProvider: React.FC<ChildrenProps> = ({ children }) => {
       const userDocSnapshot = await getDoc(userDocRef);
       if (userDocSnapshot.exists()) {
         setUserData(userDocSnapshot.data());
-        console.log(userDocSnapshot.data());
       }
     } catch (error) {
       console.error(error);

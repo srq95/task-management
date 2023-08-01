@@ -17,7 +17,7 @@ const DashboardHeader = () => {
     try {
       await signOut(auth);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       alert("Something Went Wrong");
     }
   };
