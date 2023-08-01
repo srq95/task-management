@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 type MainContextType = {
   loggedIn: boolean;
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  userData: UserDataType,
+  userData: UserDataType;
   fetchUserData: (uid: string) => Promise<void>;
 };
 
@@ -18,7 +18,7 @@ type ChildrenProps = {
 
 const MainProvider: React.FC<ChildrenProps> = ({ children }) => {
   const router = useRouter();
-  
+
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [userData, setUserData] = useState<any>(null);
 
@@ -45,7 +45,7 @@ const MainProvider: React.FC<ChildrenProps> = ({ children }) => {
       const userDocSnapshot = await getDoc(userDocRef);
       if (userDocSnapshot.exists()) {
         setUserData(userDocSnapshot.data());
-        console.log(userDocSnapshot.data())
+        console.log(userDocSnapshot.data());
       }
     } catch (error) {
       console.error(error);

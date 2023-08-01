@@ -1,7 +1,7 @@
 import { auth, firestore } from "@/utils/firebase";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
@@ -39,6 +39,8 @@ const AddUser = () => {
       const userCollection = collection(firestore, "user");
       const userDocRef = doc(userCollection, authResult.user.uid);
 
+      
+
       await setDoc(userDocRef, {
         uid: authResult.user.uid,
         name: name,
@@ -48,6 +50,11 @@ const AddUser = () => {
         group: groupSelected,
       });
 
+      const adminEmail = "admin@gmail.com";
+      const adminPassword = "admin123"
+
+      await signInWithEmailAndPassword(auth, adminEmail, adminPassword);
+
       nameRef.current.value = "";
       designationRef.current.value = "";
       emailRef.current.value = "";
@@ -55,7 +62,7 @@ const AddUser = () => {
       groupRef.current.value = "";
     } catch (err) {
       console.log(err);
-      alert("Something Went Wrong");
+      // alert("Something Went Wrong");
     }
   };
 
