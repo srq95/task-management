@@ -47,37 +47,39 @@ const Users = () => {
         <title>Users</title>
       </Head>
       <div className="white-card p-0">
-        <table>
-          <thead>
-            <tr>
-              <th className="sno-td">S.No</th>
-              <th>Username</th>
-              <th>Designation</th>
-              <th>Email</th>
-              <th>Group</th>
-              <th className="action-td">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allUsers.map((item, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.designation}</td>
-                <td>{item.email}</td>
-                <td>{item.group}</td>
-                <td className="action-td">
-                  <button className="btn btn-primary">
-                    <FontAwesomeIcon icon={faEye} />
-                  </button>
-                  <button className="btn btn-danger">
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </button>
-                </td>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th className="sno-td">S.No</th>
+                <th>Username</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th className="action-td">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {allUsers.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.designation}</td>
+                  <td>{item.email}</td>
+                  <td>{item.group}</td>
+                  <td className="action-td">
+                    <button className="btn btn-primary">
+                      <FontAwesomeIcon icon={faEye} />
+                    </button>
+                    <button className="btn btn-danger">
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

@@ -4,10 +4,11 @@ import { auth, firestore } from "@/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 type MainContextType = {
-  loggedIn: boolean;
-  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   userData: UserDataType;
   fetchUserData: (uid: string) => Promise<void>;
+  windowWidth: number;
+  menuVisbility: boolean;
+  setMenuVisbility: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const MainContext = createContext<MainContextType | undefined>(undefined);
@@ -19,8 +20,19 @@ type ChildrenProps = {
 const MainProvider: React.FC<ChildrenProps> = ({ children }) => {
   const router = useRouter();
 
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [menuVisbility, setMenuVisbility] = useState<boolean>(false);
   const [userData, setUserData] = useState<any>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -51,10 +63,11 @@ const MainProvider: React.FC<ChildrenProps> = ({ children }) => {
   };
 
   const contextState: MainContextType = {
-    loggedIn,
-    setLoggedIn,
     userData,
     fetchUserData,
+    windowWidth,
+    menuVisbility,
+    setMenuVisbility,
   };
 
   return (

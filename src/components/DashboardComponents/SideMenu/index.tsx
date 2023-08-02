@@ -81,6 +81,10 @@ const SideMenu = () => {
     },
   ];
 
+  const linksHandler = () => {
+    context?.setMenuVisbility(false);
+  };
+
   const navLinks = () => {
     if (context && context.userData && context.userData.rights) {
       const links =
@@ -92,7 +96,19 @@ const SideMenu = () => {
 
   return (
     <>
-      <div className={style.sideMenu}>
+      {context && context.windowWidth && context.windowWidth <= 576 ? (
+        <div
+          className={`${style.sideMenuBg} ${
+            context?.menuVisbility ? style.showMenu : ""
+          }`}
+          onClick={linksHandler}
+        ></div>
+      ) : null}
+      <div
+        className={`${style.sideMenu} ${
+          context?.menuVisbility ? style.showMenu : ""
+        }`}
+      >
         <div className={style.logo}>
           <Link href={"/dashboard"}>
             <img src="/assets/logo.png" alt="" />
@@ -111,6 +127,7 @@ const SideMenu = () => {
                       className={
                         router.pathname === linkitem.link ? style.active : ""
                       }
+                      onClick={linksHandler}
                     >
                       <FontAwesomeIcon icon={linkitem.icon} />
                       {linkitem.text}

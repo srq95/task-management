@@ -2,7 +2,11 @@ import { useContext } from "react";
 import { Col, Row, Tab, Tabs } from "react-bootstrap";
 import style from "./DashboardHeader.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxesStacked, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faBoxesStacked,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { MainContext } from "@/context";
 import { signOut } from "firebase/auth";
@@ -25,14 +29,37 @@ const DashboardHeader = () => {
     <>
       <header className={style.header}>
         <Row>
-          <Col md={6}></Col>
+          <Col xs={6}>
+            {context && context.windowWidth && context.windowWidth <= 576 ? (
+              <ul className={`${style.rightMenu} ${style.leftMenu}`}>
+                <li>
+                  <a
+                    href="/menu"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      context.setMenuVisbility(true)
+                    }}
+                    className={style.roundButton}
+                  >
+                    <FontAwesomeIcon icon={faBars} />
+                  </a>
+                </li>
+              </ul>
+            ) : null}
+          </Col>
 
-          <Col md={6}>
+          <Col xs={6}>
             <ul className={style.rightMenu}>
               <li>
-                <div className={style.roundButton}>
+                <a
+                  href="/team-project-details"
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                  className={style.roundButton}
+                >
                   <FontAwesomeIcon icon={faBoxesStacked} />
-                </div>
+                </a>
 
                 <div className={style.dropMenu}>
                   <h3>Activity</h3>
@@ -135,8 +162,14 @@ const DashboardHeader = () => {
                 </div>
               </li>
               <li>
-                <img src="/assets/dashboard/users/1.jpg" alt="" />
-
+                <a
+                  href="/user-detail"
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <img src="/assets/dashboard/users/1.jpg" alt="" />
+                </a>
                 <div className={style.dropMenu}>
                   <h3>User Profile</h3>
                   <div className={style.userDetailArea}>

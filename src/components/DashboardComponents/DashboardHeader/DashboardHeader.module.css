@@ -9,20 +9,28 @@
 
 .rightMenu {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 15px;
 }
 
+.rightMenu:not(.leftMenu) {
+  justify-content: flex-end;
+}
+
 .rightMenu > li {
-  cursor: pointer;
+  /* cursor: pointer; */
   position: relative;
 }
 
 .rightMenu > li > .roundButton,
-.rightMenu > li > img {
+.rightMenu > li > a > img {
   width: 35px;
   height: 35px;
+}
+
+.rightMenu > li > a {
+  display: inline-block;
+  position: relative;
 }
 
 .rightMenu > li > .roundButton {
@@ -40,7 +48,7 @@
   color: var(--primary);
 }
 
-.rightMenu > li > img {
+.rightMenu > li > a > img {
   object-fit: cover;
   border-radius: 50%;
 }
@@ -68,15 +76,23 @@
   visibility: visible;
 }
 
-.dropMenu::before {
+.rightMenu > li:has(.dropMenu) > a::before {
   content: "";
   position: absolute;
-  top: 0;
-  right: 24px;
+  bottom: -16px;
+  left: 50%;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 10px solid var(--primary);
-  transform: translate(50%, -100%);
+  transform: translate(-50%, 0%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.rightMenu > li:hover > a::before {
+  opacity: 1;
+  visibility: visible;
 }
 
 .dropMenu > h3 {
@@ -175,4 +191,21 @@
 .teamsUl .userDetailArea .userImage > img {
   width: 55px;
   height: 55px;
+}
+
+@media (max-width: 567px) {
+  .header {
+    padding: 10px 15px;
+  }
+
+  .rightMenu > li {
+    position: initial;
+  }
+
+  .dropMenu {
+    font-size: 11px;
+    right: 0px;
+    bottom: -5px;
+    min-width: auto;
+  }
 }

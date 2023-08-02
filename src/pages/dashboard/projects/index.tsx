@@ -38,35 +38,37 @@ const Projects = () => {
         <title>Projects</title>
       </Head>
       <div className="white-card p-0">
-        <table>
-          <thead>
-            <tr>
-              <th className="sno-td">S.No</th>
-              <th>Project Name</th>
-              <th>Project Url</th>
-              <th>Project Details</th>
-              <th className="action-td">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allProjects.map((item, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.projectUrl}</td>
-                <td>{item.details}</td>
-                <td className="action-td">
-                  <button className="btn btn-primary">
-                    <FontAwesomeIcon icon={faEye} />
-                  </button>
-                  <button className="btn btn-danger">
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </button>
-                </td>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th className="sno-td">S.No</th>
+                <th>Project Name</th>
+                <th>Project Url</th>
+                <th>Project Details</th>
+                <th className="action-td">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {allProjects.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.projectUrl}</td>
+                  <td>{item.details}</td>
+                  <td className="action-td">
+                    <button className="btn btn-primary">
+                      <FontAwesomeIcon icon={faEye} />
+                    </button>
+                    <button className="btn btn-danger">
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

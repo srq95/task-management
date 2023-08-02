@@ -52,21 +52,23 @@ const Tasks = () => {
           <div className="card-title m-0">
             <h1>{item.details.name}</h1>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th className="sno-td">S.no</th>
-                <th>Task</th>
-                <th>Detail</th>
-                <th>Status</th>
-                <th>Assigned At</th>
-                <th className="action-td">Action</th>
-              </tr>
-            </thead>
-            <thead>
-              <SingleProjectTask projectId={item.projectId} />
-            </thead>
-          </table>
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th className="sno-td">S.no</th>
+                  <th>Task</th>
+                  <th>Detail</th>
+                  <th>Status</th>
+                  <th>Assigned At</th>
+                  <th className="action-td">Action</th>
+                </tr>
+              </thead>
+              <thead>
+                <SingleProjectTask projectId={item.projectId} />
+              </thead>
+            </table>
+          </div>
         </div>
       ))}
     </>

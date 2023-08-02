@@ -34,34 +34,36 @@ const Groups = () => {
         <title>Users</title>
       </Head>
       <div className="white-card p-0">
-        <table>
-          <thead>
-            <tr>
-              <th className="sno-td">S.No</th>
-              <th>Group Name</th>
-              <th>Detail</th>
-              <th className="action-td">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {groups.map((item, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{item.groupName}</td>
-                <td>{item.groupDetail}</td>
-
-                <td className="action-td">
-                  <button className="btn btn-primary">
-                    <FontAwesomeIcon icon={faEye} />
-                  </button>
-                  <button className="btn btn-danger">
-                    <FontAwesomeIcon icon={faTrashAlt} />
-                  </button>
-                </td>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th className="sno-td">S.No</th>
+                <th>Group Name</th>
+                <th>Detail</th>
+                <th className="action-td">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {groups.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{item.groupName}</td>
+                  <td>{item.groupDetail}</td>
+
+                  <td className="action-td">
+                    <button className="btn btn-primary">
+                      <FontAwesomeIcon icon={faEye} />
+                    </button>
+                    <button className="btn btn-danger">
+                      <FontAwesomeIcon icon={faTrashAlt} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );

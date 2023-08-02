@@ -116,7 +116,7 @@ const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
             <td>{index + 1}</td>
             <td>{item.details.name}</td>
             <td>{item.details.details}</td>
-            <td style={{ width: 150 }}>
+            <td style={{ width: 150, minWidth: 130 }}>
               {item.details.isCompleted ? (
                 <Badge bg="success">Completed</Badge>
               ) : (
