@@ -1,3 +1,4 @@
+import ConfirmationPopup from "@/components/DashboardComponents/ConfirmationPopup";
 import { firestore } from "@/utils/firebase";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +14,8 @@ import { useEffect, useState } from "react";
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState<UserDataType[]>([]);
+  const [toDeleteID, setToDeleteID] = useState<string>("");
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
   const getUsers = async () => {
     try {
@@ -43,11 +46,18 @@ const Users = () => {
     }
   };
 
-  const handleDeleteButtonClick = async (userId: string) => {
+  const handleDeleteButtonClick = (taskId: string) => {
+    setShowConfirmationPopup(true);
+    setToDeleteID(taskId);
+  };
+
+  const handleDeleteConfirm = async (userId: string) => {
     try {
       const userDoc = doc(firestore, "user", userId);
 
       await deleteDoc(userDoc);
+
+      setShowConfirmationPopup(false);
 
       setAllUsers((prevUsers) =>
         prevUsers.filter((user) => user.uid !== userId)
@@ -66,6 +76,11 @@ const Users = () => {
       <Head>
         <title>Users</title>
       </Head>
+      <ConfirmationPopup
+        onConfirm={() => handleDeleteConfirm(toDeleteID)}
+        onCancel={() => setShowConfirmationPopup(false)}
+        visibility={showConfirmationPopup}
+      />
       <div className="white-card p-0">
         <div className="table-container">
           <table>

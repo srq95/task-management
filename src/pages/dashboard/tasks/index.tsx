@@ -65,7 +65,7 @@ const Tasks = () => {
                 </tr>
               </thead>
               <thead>
-                <SingleProjectTask projectId={item.projectId} />
+                <SingleProjectTask projectId={item.projectId} projectIndex={index} />
               </thead>
             </table>
           </div>

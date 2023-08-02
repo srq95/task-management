@@ -1,3 +1,4 @@
+import ConfirmationPopup from "@/components/DashboardComponents/ConfirmationPopup";
 import { firestore } from "@/utils/firebase";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +8,8 @@ import { useEffect, useState } from "react";
 
 const Groups = () => {
   const [groups, setGroups] = useState<GroupDataType[]>([]);
+  const [toDeleteID, setToDeleteID] = useState<string>("");
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
   const getGroups = async () => {
     const groupCollection = collection(firestore, "groups");
@@ -28,11 +31,18 @@ const Groups = () => {
     getGroups();
   }, []);
 
-  const handleDeleteButtonClick = async (groupId: string) => {
+  const handleDeleteButtonClick = (taskId: string) => {
+    setShowConfirmationPopup(true);
+    setToDeleteID(taskId);
+  };
+
+  const handleDeleteConfirm = async (groupId: string) => {
     try {
       const groupsDoc = doc(firestore, "groups", groupId);
 
       await deleteDoc(groupsDoc);
+
+      setShowConfirmationPopup(false);
 
       setGroups((prevGroups) =>
         prevGroups.filter((group) => group.groupId !== groupId)
@@ -47,6 +57,11 @@ const Groups = () => {
       <Head>
         <title>Users</title>
       </Head>
+      <ConfirmationPopup
+        onConfirm={() => handleDeleteConfirm(toDeleteID)}
+        onCancel={() => setShowConfirmationPopup(false)}
+        visibility={showConfirmationPopup}
+      />
       <div className="white-card p-0">
         <div className="table-container">
           <table>

@@ -5,6 +5,7 @@ import { firestore } from "@/utils/firebase";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import ConfirmationPopup from "@/components/DashboardComponents/ConfirmationPopup";
 
 type TaskDetailsType = {
   details: ProjectDataType;
@@ -13,6 +14,8 @@ type TaskDetailsType = {
 
 const Projects = () => {
   const [allProjects, setAllProjects] = useState<TaskDetailsType[]>([]);
+  const [toDeleteID, setToDeleteID] = useState<string>("");
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
   const context = useContext(MainContext);
 
@@ -39,23 +42,30 @@ const Projects = () => {
     }
   };
 
-  const handleDeleteButtonClick = async (projectId: string) => {
-    try {
-      if (context && context.userData.group) {
-        const groupDocRef = doc(firestore, "groups", context.userData.group);
+   const handleDeleteButtonClick = (taskId: string) => {
+     setShowConfirmationPopup(true);
+     setToDeleteID(taskId);
+   };
 
-        const projectDoc = doc(groupDocRef, "projects", projectId);
+   const handleDeleteConfirm = async (projectId: string) => {
+     try {
+       if (context && context.userData.group) {
+         const groupDocRef = doc(firestore, "groups", context.userData.group);
 
-        await deleteDoc(projectDoc);
+         const projectDoc = doc(groupDocRef, "projects", projectId);
 
-        setAllProjects((prevProjects) =>
-          prevProjects.filter((project) => project.projectId !== projectId)
-        );
-      }
-    } catch (error) {
-      console.error("Error deleting task:", error);
-    }
-  };
+         await deleteDoc(projectDoc);
+
+         setShowConfirmationPopup(false);
+
+         setAllProjects((prevProjects) =>
+           prevProjects.filter((project) => project.projectId !== projectId)
+         );
+       }
+     } catch (error) {
+       console.error("Error deleting task:", error);
+     }
+   };
 
   useEffect(() => {
     getProjects();
@@ -66,6 +76,11 @@ const Projects = () => {
       <Head>
         <title>Projects</title>
       </Head>
+      <ConfirmationPopup
+        onConfirm={() => handleDeleteConfirm(toDeleteID)}
+        onCancel={() => setShowConfirmationPopup(false)}
+        visibility={showConfirmationPopup}
+      />
       <div className="white-card p-0">
         <div className="table-container">
           <table>

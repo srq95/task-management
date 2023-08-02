@@ -1,0 +1,74 @@
+.confirmationPopupBg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100vh;
+  z-index: 105;
+}
+
+.confirmationPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 106;
+  background: #fff;
+  border-radius: var(--container-radius);
+  padding: 30px;
+  width: calc(100% - 30px);
+  max-width: 400px;
+}
+
+.confirmationPopupBg,
+.confirmationPopup {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.confirmationPopupBg.showPopup,
+.confirmationPopup.showPopup {
+  opacity: 1;
+  visibility: visible;
+}
+
+.confirmationPopup > h3 {
+  font-size: 24px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+.confirmationPopupBtn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  margin-top: 25px;
+}
+
+.confirmationPopupBtn > * {
+  font-size: 14px !important;
+}
+
+@media (max-width: 768px) {
+  .confirmationPopup > h3 {
+    font-size: 20px;
+  }
+
+  .confirmationPopupBtn > * {
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 567px) {
+  .confirmationPopup > h3 {
+    font-size: 17px;
+  }
+
+  .confirmationPopupBtn > * {
+    font-size: 12px !important;
+  }
+}

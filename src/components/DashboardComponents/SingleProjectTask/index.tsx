@@ -17,9 +17,11 @@ import {
 } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "react-bootstrap";
+import ConfirmationPopup from "../ConfirmationPopup";
 
 type SingleTaskType = {
   projectId: string;
+  projectIndex: number;
 };
 
 type TaskDetailsType = {
@@ -27,8 +29,13 @@ type TaskDetailsType = {
   taskId: string;
 };
 
-const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
+const SingleProjectTask: React.FC<SingleTaskType> = ({
+  projectId,
+  projectIndex,
+}) => {
   const [allTasks, setAllTasks] = useState<TaskDetailsType[]>([]);
+  const [toDeleteID, setToDeleteID] = useState<string>("");
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
   const context = useContext(MainContext);
 
@@ -105,7 +112,12 @@ const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
     }
   };
 
-  const handleDeleteButtonClick = async (taskId: string) => {
+  const handleDeleteButtonClick = (taskId: string) => {
+    setShowConfirmationPopup(true);
+    setToDeleteID(taskId);
+  };
+
+  const handleDeleteConfirm = async (taskId: string) => {
     try {
       if (context && context.userData.group) {
         const groupDocRef = doc(firestore, "groups", context.userData.group);
@@ -115,6 +127,8 @@ const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
         const taskDocRef = doc(projectDoc, "tasks", taskId);
 
         await deleteDoc(taskDocRef);
+
+        setShowConfirmationPopup(false);
 
         setAllTasks((prevTasks) =>
           prevTasks.filter((task) => task.taskId !== taskId)
@@ -131,6 +145,11 @@ const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
 
   return (
     <>
+      <ConfirmationPopup
+        onConfirm={() => handleDeleteConfirm(toDeleteID)}
+        onCancel={() => setShowConfirmationPopup(false)}
+        visibility={showConfirmationPopup}
+      />
       {allTasks.map((item, index) => {
         const data = item.details.createdAt.toDate();
         const formattedDate = isValid(data)
