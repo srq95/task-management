@@ -1,7 +1,7 @@
 import { firestore } from "@/utils/firebase";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
@@ -27,6 +27,20 @@ const Groups = () => {
   useEffect(() => {
     getGroups();
   }, []);
+
+  const handleDeleteButtonClick = async (groupId: string) => {
+    try {
+      const groupsDoc = doc(firestore, "groups", groupId);
+
+      await deleteDoc(groupsDoc);
+
+      setGroups((prevGroups) =>
+        prevGroups.filter((group) => group.groupId !== groupId)
+      );
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
 
   return (
     <>
@@ -55,7 +69,10 @@ const Groups = () => {
                     <button className="btn btn-primary">
                       <FontAwesomeIcon icon={faEye} />
                     </button>
-                    <button className="btn btn-danger">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteButtonClick(item.groupId)}
+                    >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </button>
                   </td>

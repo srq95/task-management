@@ -8,7 +8,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, isValid } from "date-fns";
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "react-bootstrap";
 
@@ -99,6 +105,26 @@ const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
     }
   };
 
+  const handleDeleteButtonClick = async (taskId: string) => {
+    try {
+      if (context && context.userData.group) {
+        const groupDocRef = doc(firestore, "groups", context.userData.group);
+
+        const projectDoc = doc(groupDocRef, "projects", projectId);
+
+        const taskDocRef = doc(projectDoc, "tasks", taskId);
+
+        await deleteDoc(taskDocRef);
+
+        setAllTasks((prevTasks) =>
+          prevTasks.filter((task) => task.taskId !== taskId)
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
   useEffect(() => {
     getProjects();
   }, [context?.userData?.group]);
@@ -144,7 +170,10 @@ const SingleProjectTask: React.FC<SingleTaskType> = ({ projectId }) => {
               <button className="btn btn-primary">
                 <FontAwesomeIcon icon={faEye} />
               </button>
-              <button className="btn btn-danger">
+              <button
+                className="btn btn-danger"
+                onClick={() => handleDeleteButtonClick(item.taskId)}
+              >
                 <FontAwesomeIcon icon={faTrashAlt} />
               </button>
             </td>

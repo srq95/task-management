@@ -1,7 +1,13 @@
 import { firestore } from "@/utils/firebase";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
@@ -34,6 +40,20 @@ const Users = () => {
       setAllUsers(UserData);
     } catch (error) {
       console.error("Error fetching users:", error);
+    }
+  };
+
+  const handleDeleteButtonClick = async (userId: string) => {
+    try {
+      const userDoc = doc(firestore, "user", userId);
+
+      await deleteDoc(userDoc);
+
+      setAllUsers((prevUsers) =>
+        prevUsers.filter((user) => user.uid !== userId)
+      );
+    } catch (error) {
+      console.error("Error deleting task:", error);
     }
   };
 
@@ -71,7 +91,10 @@ const Users = () => {
                     <button className="btn btn-primary">
                       <FontAwesomeIcon icon={faEye} />
                     </button>
-                    <button className="btn btn-danger">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteButtonClick(item.uid)}
+                    >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </button>
                   </td>

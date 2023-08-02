@@ -1,13 +1,18 @@
 import { useContext, useEffect, useState } from "react";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { MainContext } from "@/context";
 import { firestore } from "@/utils/firebase";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
+type TaskDetailsType = {
+  details: ProjectDataType;
+  projectId: string;
+};
+
 const Projects = () => {
-  const [allProjects, setAllProjects] = useState<ProjectDataType[]>([]);
+  const [allProjects, setAllProjects] = useState<TaskDetailsType[]>([]);
 
   const context = useContext(MainContext);
 
@@ -18,13 +23,37 @@ const Projects = () => {
         const projectCollection = collection(groupDocRef, "projects");
         const projectData = await getDocs(projectCollection);
 
-        const projects = projectData.docs.map(
-          (doc) => doc.data() as ProjectDataType
-        );
+        const projects: TaskDetailsType[] = [];
+
+        projectData.forEach((doc) => {
+          projects.push({
+            details: doc.data() as ProjectDataType,
+            projectId: doc.id,
+          });
+        });
+
         setAllProjects(projects);
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
+    }
+  };
+
+  const handleDeleteButtonClick = async (projectId: string) => {
+    try {
+      if (context && context.userData.group) {
+        const groupDocRef = doc(firestore, "groups", context.userData.group);
+
+        const projectDoc = doc(groupDocRef, "projects", projectId);
+
+        await deleteDoc(projectDoc);
+
+        setAllProjects((prevProjects) =>
+          prevProjects.filter((project) => project.projectId !== projectId)
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting task:", error);
     }
   };
 
@@ -53,14 +82,17 @@ const Projects = () => {
               {allProjects.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.projectUrl}</td>
-                  <td>{item.details}</td>
+                  <td>{item.details.name}</td>
+                  <td>{item.details.projectUrl}</td>
+                  <td>{item.details.details}</td>
                   <td className="action-td">
                     <button className="btn btn-primary">
                       <FontAwesomeIcon icon={faEye} />
                     </button>
-                    <button className="btn btn-danger">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeleteButtonClick(item.projectId)}
+                    >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </button>
                   </td>
